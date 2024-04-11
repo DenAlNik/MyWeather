@@ -9,7 +9,6 @@ import UIKit
 import PinLayout
 
 class MainViewController: UIViewController {
-    private let currentCityWeather: StateOfWeather = StateOfWeather(city: "Moscow", temp: "+15", typeOfWeather: "sun", windSpeed: "10", windSide: "south")
     private let cityLabel = UILabel()
     private let tempLabel = UILabel()
     private let windSpeedLabel = UILabel()
@@ -19,6 +18,8 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loadData()
         setup()
     }
     
@@ -26,7 +27,6 @@ class MainViewController: UIViewController {
     private func setup() {
         view.backgroundColor = .systemGray6
         title = tabBarItem.title
-        //navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "slider.horizontal.2.square"),
             style: .plain,
@@ -40,24 +40,33 @@ class MainViewController: UIViewController {
         }
         [cityLabel, tempLabel, windSpeedLabel, windSideLabel, typeOfWeatherLabel].forEach {
             cardView.addSubview($0)
+            $0.font = UIFont.systemFont(ofSize: 15)
         }
-        cardView.backgroundColor = .white
-        cardView.frame = CGRect(x: 0, y: 0, width: Int(self.view.safeAreaLayoutGuide.layoutFrame.width), height: 168)
-        cardView.layer.cornerRadius = 8
-        setCurrent()
-        cityLabel.font = UIFont.systemFont(ofSize: 30, weight: .semibold)
         
+        cardView.backgroundColor = .white
+        cardView.layer.cornerRadius = 8
+        
+        cityLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+        
+        cityLabel.numberOfLines = 0
+        cityLabel.lineBreakMode = .byWordWrapping
        
     }
     
-    private func setCurrent() {
-        self.cityLabel.text = currentCityWeather.city
-        self.tempLabel.text = "Температура: " + currentCityWeather.temp + " C˚"
-        self.windSpeedLabel.text = "Скорость ветра: " + currentCityWeather.windSpeed + " м/с"
-        self.windSideLabel.text = "Направление ветра: " + currentCityWeather.windSide
-        self.typeOfWeatherLabel.text = "Состояние погоды: " + currentCityWeather.typeOfWeather
+    private func loadData() {
+        WeatherManager.shared.fetchWeather { [weak self] weatherData in
+            DispatchQueue.main.async {
+                guard let self else { return }
+                self.cityLabel.text = weatherData.resolvedAddress
+                self.tempLabel.text = "Температура: \(weatherData.currentConditions.temp) C˚"
+                self.windSpeedLabel.text = "Скорость ветра: \(weatherData.currentConditions.windspeed) м/с"
+                self.windSideLabel.text = "Направление ветра: \(weatherData.currentConditions.winddir)"
+                self.typeOfWeatherLabel.text = "Состояние погоды: " + weatherData.currentConditions.conditions
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
+            }
+        }
     }
-    
     
     
     override func viewDidLayoutSubviews() {
@@ -65,10 +74,16 @@ class MainViewController: UIViewController {
         cardView.pin
             .top(view.pin.safeArea.top + 12)
             .horizontally(view.pin.safeArea + 20)
+            .width(view.frame.width - 40)
+            //.sizeToFit(.heightFlexible)
+            //.sizeToFit()
+            //.height(400)
+            
         cityLabel.pin
             .top(12)
             .left(20)
-            .sizeToFit()
+            .maxWidth(view.frame.width - 80)
+            .sizeToFit(.width)
         typeOfWeatherLabel.pin
             .below(of: cityLabel)
             .marginTop(8)
@@ -89,6 +104,8 @@ class MainViewController: UIViewController {
             .marginTop(4)
             .left(20)
             .sizeToFit()
+        cardView.pin
+            .height(cityLabel.frame.height + 120)
     }
     
     @objc
