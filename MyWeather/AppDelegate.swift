@@ -4,7 +4,7 @@
 //
 //  Created by Александр Денисов on 10.04.2024.
 //
-//e721d68acfa85590809be07883665271
+
 import UIKit
 import CoreData
 
