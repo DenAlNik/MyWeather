@@ -22,44 +22,31 @@ struct currentStateOfWeather: Codable {
     let currentConditions: CurrentConditions
 }
 
-var nameCity: String = "London"
-
-class WeatherManager {
-    
+final class WeatherManager {
+    private var nameCity: String = "Москва"
     static let shared = WeatherManager()
-    
-    let urlString = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" + nameCity + "?unitGroup=metric&elements=name%2Ctemp%2Cwindspeed%2Cwinddir%2Cconditions&include=current&key=VGLFY6BKKEJ4G8FFTYL3MLH9P&contentType=json"
-    
     func fetchWeather(completion: @escaping (currentStateOfWeather) -> Void) {
-        
+        let urlString = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" + nameCity + "?unitGroup=metric&elements=name%2Ctemp%2Cwindspeed%2Cwinddir%2Cconditions&include=current&key=VGLFY6BKKEJ4G8FFTYL3MLH9P&contentType=json"
         guard let url = URL(string: urlString) else {return}
-        var request = URLRequest(url: url)
-        
+        let request = URLRequest(url: url)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-      
             guard let data = data else { return }
-            
             if let error = error {
                 print("ERROR1: \(String(describing: error.localizedDescription))")
                 return
             }
-            
             if let weatherData = try? JSONDecoder().decode(currentStateOfWeather.self, from: data) {
                 completion(weatherData)
             } else {
-                print("Error some")
+                print("NOT FIND")
             }
-            
-//            do {
-//                let dataCurrent = try JSONDecoder().decode(currentStateOfWeather.self, from: data)
-//                DispatchQueue.main.async {
-//                    
-//                }
-//            } catch {
-//                print("ERROR2: \(error.localizedDescription)")
-//            }
         }
             task.resume()
     }
-    
+    func setNameCity(newName: String) {
+        self.nameCity = newName
+    }
+    func getNameCity() -> String {
+        return self.nameCity
+    }
 }

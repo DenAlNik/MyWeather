@@ -19,7 +19,7 @@ final class AppFactory {
         tabBarController.selectedIndex = 0
         tabBarController.tabBar.isTranslucent = false
         tabBarController.tabBar.unselectedItemTintColor = .gray
-        tabBarController.tabBar.backgroundColor = .white
+        tabBarController.tabBar.backgroundColor = .systemBackground
         
         return tabBarController
     }
@@ -30,8 +30,7 @@ final class AppFactory {
         vc.tabBarItem = vcTabBarItem
         
         let nav = UINavigationController(rootViewController: vc)
-        
-        
+
         return nav
     }
     

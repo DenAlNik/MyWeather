@@ -16,7 +16,7 @@
 		66394D9F2BC72143001E956B /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 66394D9E2BC72143001E956B /* PinLayout */; };
 		66394DA12BC729D0001E956B /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66394DA02BC729D0001E956B /* FavoritesViewController.swift */; };
 		66394DA32BC72DFA001E956B /* AppFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66394DA22BC72DFA001E956B /* AppFactory.swift */; };
-		66394DA52BC745BB001E956B /* APIServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66394DA42BC745BB001E956B /* APIServices.swift */; };
+		66394DA52BC745BB001E956B /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66394DA42BC745BB001E956B /* WeatherManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +30,7 @@
 		66394D972BC7192E001E956B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66394DA02BC729D0001E956B /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		66394DA22BC72DFA001E956B /* AppFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFactory.swift; sourceTree = "<group>"; };
-		66394DA42BC745BB001E956B /* APIServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServices.swift; sourceTree = "<group>"; };
+		66394DA42BC745BB001E956B /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				66394D862BC7192D001E956B /* AppDelegate.swift */,
-				66394DA42BC745BB001E956B /* APIServices.swift */,
+				66394DA42BC745BB001E956B /* WeatherManager.swift */,
 				66394DA22BC72DFA001E956B /* AppFactory.swift */,
 				66394D882BC7192D001E956B /* SceneDelegate.swift */,
 				66394D8A2BC7192D001E956B /* MainViewController.swift */,
@@ -159,7 +159,7 @@
 				66394D872BC7192D001E956B /* AppDelegate.swift in Sources */,
 				66394DA32BC72DFA001E956B /* AppFactory.swift in Sources */,
 				66394DA12BC729D0001E956B /* FavoritesViewController.swift in Sources */,
-				66394DA52BC745BB001E956B /* APIServices.swift in Sources */,
+				66394DA52BC745BB001E956B /* WeatherManager.swift in Sources */,
 				66394D892BC7192D001E956B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
